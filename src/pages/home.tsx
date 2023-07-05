@@ -1,4 +1,11 @@
+import { useNavigate } from 'react-router-dom';
+
 function Home() {
+  const navigate = useNavigate();
+
+  function handleClick() {
+    navigate('/carrinho');
+  }
   return (
     <>
       <form>
@@ -11,6 +18,7 @@ function Home() {
       </p>
 
       <div id="Produtos" />
+      <button data-testid="shopping-cart-button" onClick={ handleClick }>Carrinho</button>
     </>
   );
 }
