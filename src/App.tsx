@@ -1,23 +1,13 @@
-import React from 'react';
-import logo from './logo.svg';
+import * as api from './services/api';
 import './App.css';
+
+api.getCategories().then((categories) => { console.log(categories); });
+api.getProductsFromCategoryAndQuery('MLB271599', 'Agro').then((a) => { console.log(a); });
+api.getProductById('MLB3174626530').then((product) => { console.log(product); });
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={ logo } className="App-logo" alt="logo" />
-        <p>Edit src/App.js and save to reload.</p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <div className="App" />
   );
 }
 
