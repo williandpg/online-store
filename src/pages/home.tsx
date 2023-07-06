@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import Navigation from './Navigation';
 
 function Home() {
   const navigate = useNavigate();
@@ -19,6 +20,7 @@ function Home() {
 
       <div id="Produtos" />
       <button data-testid="shopping-cart-button" onClick={ handleClick }>Carrinho</button>
+      <Navigation />
     </>
   );
 }
