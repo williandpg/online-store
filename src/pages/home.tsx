@@ -1,12 +1,21 @@
+// React
 import React, { useState } from 'react';
-import ProductBox from '../components/ProductsBox';
+import { useNavigate } from 'react-router-dom';
+
+// Api
 import { getProductsFromCategoryAndQuery } from '../services/api';
+
+// Componente
+import ProductBox from '../components/ProductsBox';
 import type { Product } from '../components/ProductsBox';
+
+import Navigation from './Navigation';
 
 function Home() {
   const [searchTerm, setSearchTerm] = useState('');
   const [products, setProducts] = useState<Product[]>([]);
   const [errorMessage, setErrorMessage] = useState('');
+  const navigate = useNavigate();
 
   const handleSearch = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -25,8 +34,15 @@ function Home() {
     }
   };
 
+  function handleClick() {
+    navigate('/carrinho');
+  }
+
   return (
     <>
+      <button data-testid="shopping-cart-button" onClick={ handleClick }>Carrinho</button>
+      <Navigation />
+
       <form onSubmit={ handleSearch }>
         <input
           type="text"
@@ -46,7 +62,6 @@ function Home() {
           Digite algum termo de pesquisa ou escolha uma categoria.
         </p>
       )}
-      {console.log(products)}
       {products.length > 0 && (
         <div id="Produtos">
           {products.map((product) => (
