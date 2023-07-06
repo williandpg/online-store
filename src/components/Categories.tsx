@@ -1,6 +1,5 @@
-import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { getCategories } from '../services/api';
-import * as api from '../services/api';
 
 type CategoriesList = {
   id: string;
