@@ -14,6 +14,5 @@ function ProductBox({ title, thumbnail, price }: Omit<Product, 'id'>) {
     </div>
   );
 }
-console.log(ProductBox)
 
 export default ProductBox;
