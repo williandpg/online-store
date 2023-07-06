@@ -1,5 +1,5 @@
 // Api
-import * as api from './services/api';
+// import * as api from './services/api';
 
 // Pages
 import Home from './pages/home';
