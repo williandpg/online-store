@@ -1,18 +1,19 @@
 export interface Product {
   id: string
-  name: string
+  title: string
   thumbnail: string
   price: string
 }
 
-function ProductBox({ name, thumbnail, price }: Omit<Product, 'id'>) {
+function ProductBox({ title, thumbnail, price }: Omit<Product, 'id'>) {
   return (
     <div data-testid="product">
-      <img src={ thumbnail } alt={ `imagem de ${name}` } />
+      <img src={ thumbnail } alt={ `imagem de ${title}` } />
       <h2>{ price }</h2>
-      <p>{ name }</p>
+      <p>{ title }</p>
     </div>
   );
 }
+console.log(ProductBox)
 
 export default ProductBox;
