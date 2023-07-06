@@ -5,11 +5,11 @@ import { Route, Routes } from 'react-router-dom';
 // import * as api from './services/api';
 
 // Pages
-import Home from './pages/home';
+import Home from './pages/Home';
+import Carrinho from './pages/Carrinho';
 
 // Css
 import './App.css';
-import Carrinho from './pages/Carrinho';
 
 // api.getCategories().then((categories) => { console.log(categories); });
 // api.getProductsFromCategoryAndQuery('MLB271599', 'Agro').then((a) => { console.log(a); });

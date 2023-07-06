@@ -1,12 +1,21 @@
-import React from 'react';
 import { Outlet } from 'react-router-dom';
 import Categories from '../components/Categories';
 
-function Navigation() {
+type Props = {
+  func: (id: string) => void;
+  func2: () => Promise<void>;
+};
+
+function Navigation(props:Props) {
+  const { func, func2 } = props;
+
   return (
     <>
       <aside>
-        <Categories />
+        <Categories
+          setId={ func }
+          funSearc={ func2 }
+        />
       </aside>
       <main>
         <Outlet />

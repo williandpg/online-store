@@ -1,13 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { getCategories } from '../services/api';
+import * as api from '../services/api';
 
 type CategoriesList = {
   id: string;
   name: string;
 };
+type Props = {
+  setId: (id: string) => void;
+  funSearc: () => Promise<void>
+};
 
-function Categories() {
+function Categories(props:Props) {
   const [navCategories, setNavCategories] = useState<CategoriesList[]>([]);
+  const { setId, funSearc } = props;
 
   useEffect(() => {
     const getCategoriesList = async () => {
@@ -16,6 +22,11 @@ function Categories() {
     };
     getCategoriesList();
   }, []);
+
+  function handleClick(id: string) {
+    setId(id);
+    funSearc();
+  }
 
   return (
     <div id="products">
@@ -26,6 +37,7 @@ function Categories() {
             id={ category.id }
             name="category"
             data-testid="category"
+            onClick={ () => handleClick(category.id) }
           />
           <label htmlFor={ category.id } data-testid="category-label">
             {category.name}
