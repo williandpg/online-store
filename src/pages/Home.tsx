@@ -17,11 +17,9 @@ function Home() {
   const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
 
-  const handleSearch = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
+  const search = async (id:string) => {
     try {
-      const data = await getProductsFromCategoryAndQuery('', searchTerm);
+      const data = await getProductsFromCategoryAndQuery(id, searchTerm);
       if (data.results.length === 0) {
         setErrorMessage('Nenhum produto foi encontrado');
       } else {
@@ -34,6 +32,11 @@ function Home() {
     }
   };
 
+  const handleSearch = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    search('');
+  };
+
   function handleClick() {
     navigate('/carrinho');
   }
@@ -41,7 +44,9 @@ function Home() {
   return (
     <>
       <button data-testid="shopping-cart-button" onClick={ handleClick }>Carrinho</button>
-      <Navigation />
+      <Navigation
+        func2={ search }
+      />
 
       <form onSubmit={ handleSearch }>
         <input

@@ -1,13 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { getCategories } from '../services/api';
 
 type CategoriesList = {
   id: string;
   name: string;
 };
+type Props = {
+  funSearc: (id: string) => Promise<void>
+};
 
-function Categories() {
+function Categories(props:Props) {
   const [navCategories, setNavCategories] = useState<CategoriesList[]>([]);
+  const { funSearc } = props;
 
   useEffect(() => {
     const getCategoriesList = async () => {
@@ -26,6 +30,7 @@ function Categories() {
             id={ category.id }
             name="category"
             data-testid="category"
+            onClick={ () => funSearc(category.id) }
           />
           <label htmlFor={ category.id } data-testid="category-label">
             {category.name}
