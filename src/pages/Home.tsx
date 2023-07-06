@@ -8,7 +8,6 @@ import { getProductsFromCategoryAndQuery } from '../services/api';
 // Componente
 import ProductBox from '../components/ProductsBox';
 import type { Product } from '../components/ProductsBox';
-
 import Navigation from './Navigation';
 
 function Home() {

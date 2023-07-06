@@ -7,6 +7,7 @@ import { Route, Routes } from 'react-router-dom';
 // Pages
 import Home from './pages/Home';
 import Carrinho from './pages/Carrinho';
+import Details from './pages/Details';
 
 // Css
 import './App.css';
@@ -21,6 +22,7 @@ function App() {
       <Routes>
         <Route path="/" element={ <Home /> } />
         <Route path="/carrinho" element={ <Carrinho /> } />
+        <Route path="/details/:id" element={ <Details /> } />
       </Routes>
     </div>
   );
