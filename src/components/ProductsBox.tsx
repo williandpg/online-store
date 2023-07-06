@@ -1,10 +1,12 @@
-function ProductBox(productName: string, productImage: string, productPrice: string) {
+import { Product } from "../pages/home";
+
+function ProductBox({ name, thumbnail, price}: Product) {
   return (
-    <button>
-      <img src={ productImage } alt={ `imagem de ${productName}` } />
-      <h2>{ productPrice }</h2>
-      <p>{ productName }</p>
-    </button>
+    <div data-testid="product">
+      <img src={thumbnail} alt={`imagem de ${name}`} />
+      <h2>{price}</h2>
+      <p>{name}</p>
+    </div>
   );
 }
 
