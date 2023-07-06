@@ -6,13 +6,12 @@ type CategoriesList = {
   name: string;
 };
 type Props = {
-  setId: (id: string) => void;
-  funSearc: () => Promise<void>
+  funSearc: (id: string) => Promise<void>
 };
 
 function Categories(props:Props) {
   const [navCategories, setNavCategories] = useState<CategoriesList[]>([]);
-  const { setId, funSearc } = props;
+  const { funSearc } = props;
 
   useEffect(() => {
     const getCategoriesList = async () => {
@@ -21,11 +20,6 @@ function Categories(props:Props) {
     };
     getCategoriesList();
   }, []);
-
-  function handleClick(id: string) {
-    setId(id);
-    funSearc();
-  }
 
   return (
     <div id="products">
@@ -36,7 +30,7 @@ function Categories(props:Props) {
             id={ category.id }
             name="category"
             data-testid="category"
-            onClick={ () => handleClick(category.id) }
+            onClick={ () => funSearc(category.id) }
           />
           <label htmlFor={ category.id } data-testid="category-label">
             {category.name}
