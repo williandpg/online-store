@@ -16,5 +16,3 @@ function ProductBox({ title, thumbnail, price }: Omit<Product, 'id'>) {
 }
 
 export default ProductBox;
-
-//Só pra poder postar dnv
