@@ -8,7 +8,6 @@ import { getProductsFromCategoryAndQuery } from '../services/api';
 // Componente
 import ProductBox from '../components/ProductsBox';
 import type { Product } from '../components/ProductsBox';
-
 import Navigation from './Navigation';
 
 function Home() {
@@ -16,7 +15,6 @@ function Home() {
   const [products, setProducts] = useState<Product[]>([]);
   const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
-
   const search = async (id:string) => {
     try {
       const data = await getProductsFromCategoryAndQuery(id, searchTerm);
