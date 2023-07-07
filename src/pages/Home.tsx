@@ -34,6 +34,9 @@ function Home() {
 
   const handleSearch = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (searchTerm.trim().length === 0) {
+      setErrorMessage('Nenhum produto foi encontrado');
+    }
     search('');
   };
 
