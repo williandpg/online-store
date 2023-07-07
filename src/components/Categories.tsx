@@ -43,7 +43,7 @@ function Categories(props:Props) {
         // >
         //   {category.name}
         // </button>
-      )):null}
+      )) : null}
     </div>
   );
 }
