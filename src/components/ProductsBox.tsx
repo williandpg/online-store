@@ -6,6 +6,7 @@ export interface Product {
   title: string
   thumbnail: string
   price: string
+  quantity: number
 }
 
 function ProductBox({ id, title, thumbnail, price }: Product) {
