@@ -23,7 +23,7 @@ function Categories(props:Props) {
 
   return (
     <div id="products">
-      {navCategories.map((category) => (
+      {Array.isArray(navCategories) ? navCategories.map((category) => (
         <div key={ category.id }>
           <input
             type="radio"
@@ -43,7 +43,7 @@ function Categories(props:Props) {
         // >
         //   {category.name}
         // </button>
-      ))}
+      )):null}
     </div>
   );
 }

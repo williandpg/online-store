@@ -1,5 +1,5 @@
 // React
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 // Api
@@ -18,9 +18,10 @@ function Home() {
   const navigate = useNavigate();
 
   const search = async (id:string) => {
+
     try {
       const data = await getProductsFromCategoryAndQuery(id, searchTerm);
-      if (data.results.length === 0) {
+      if (data.results.length === 0 ) {
         setErrorMessage('Nenhum produto foi encontrado');
       } else {
         setErrorMessage('');
@@ -34,6 +35,9 @@ function Home() {
 
   const handleSearch = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (searchTerm.trim().length === 0) {
+      setErrorMessage('Nenhum produto foi encontrado')
+    }
     search('');
   };
 
