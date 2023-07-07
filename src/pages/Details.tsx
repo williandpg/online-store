@@ -7,7 +7,7 @@ function Details() {
   const { id }: { id?: string } = useParams();
   const [product, setProduct] = useState<Product | null>(null);
   const navigate = useNavigate();
-  const [cart, setCart] = useState<Product[] | null>(null);
+  const [cart, setCart] = useState<Product[]>([]);
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -26,7 +26,7 @@ function Details() {
   }, [id]);
 
   const handleCartClick = () => {
-    navigate('/carrinho');
+    navigate('/carrinho', { state: cart });
   };
 
   if (!product) {
@@ -34,32 +34,40 @@ function Details() {
   }
 
   const handleAddCart = () => {
-    const checkItem = cart?.some((item) => item.id === product.id );
+    const checkItem = cart.some((item) => item.id === product.id );
     let arr = [];
-    if(checkItem && cart) {
-      arr = [... cart, {
-        ...product, 
-        quantity: product.quantity + 1
-      }]
+    if(checkItem) {
+      arr = cart.map((cartProduct) => {
+        if(cartProduct.id === product.id) {
+          return {
+            ...cartProduct,
+            quantity: cartProduct.quantity + 1
+          }
+        }
+        return cartProduct;
+      })
+      // arr = [... cart, {
+      //   ...product, 
+      //   quantity: product.quantity + 1
+      // }]
     }
     else {
-      arr = [{
+      arr = [
+        ...cart,
+        {
         ...product,
         quantity: 1
-      }]
+        }
+      ]
+      console.log('entrei no else')
 
     }
+    console.log(arr);
     setCart(arr);
-    // const cartItem = {
-    //   product,
-    //   quantity: 1
-    // }
-    // // setCart( [...cart, cartItem]);
-    // setCart((prev) => ({
-    //   ...prev,
-    //   product
-    // }))
-    // console.log(cart);
+  }
+
+  const handleBackToInitialPage = () => {
+    navigate('/', { state: cart })
   }
 
   return (
@@ -77,7 +85,7 @@ function Details() {
       <button data-testid="product-detail-add-to-cart" onClick={ handleAddCart }>
         Adicionar ao Carrinho
       </button>
-      <Link to="/">Voltar para a página inicial</Link>
+      <button onClick={ handleBackToInitialPage }>Voltar para a página inicial</button>
     </div>
   );
 }
