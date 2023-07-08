@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import { Product } from '../components/ProductsBox';
 import { getProductById } from '../services/api';
 
@@ -34,41 +34,39 @@ function Details() {
   }
 
   const handleAddCart = () => {
-    const checkItem = cart.some((item) => item.id === product.id );
+    const checkItem = cart.some((item) => item.id === product.id);
     let arr = [];
-    if(checkItem) {
+    if (checkItem) {
       arr = cart.map((cartProduct) => {
-        if(cartProduct.id === product.id) {
+        if (cartProduct.id === product.id) {
           return {
             ...cartProduct,
-            quantity: cartProduct.quantity + 1
-          }
+            quantity: cartProduct.quantity + 1,
+          };
         }
         return cartProduct;
-      })
+      });
       // arr = [... cart, {
-      //   ...product, 
+      //   ...product,
       //   quantity: product.quantity + 1
       // }]
-    }
-    else {
+    } else {
       arr = [
         ...cart,
         {
-        ...product,
-        quantity: 1
-        }
-      ]
-      console.log('entrei no else')
-
+          ...product,
+          quantity: 1,
+        },
+      ];
+      console.log('entrei no else');
     }
     console.log(arr);
     setCart(arr);
-  }
+  };
 
   const handleBackToInitialPage = () => {
-    navigate('/', { state: cart })
-  }
+    navigate('/', { state: cart });
+  };
 
   return (
     <div>
