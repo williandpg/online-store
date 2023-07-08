@@ -9,11 +9,14 @@ export interface Product {
   quantity: number
 }
 
-function ProductBox({ id, title, thumbnail, price }: Product) {
+function ProductBox({ id, title, thumbnail, price, quantity }: Product) {
   const navigate = useNavigate();
+  console.log(quantity);
+
   const handleProductClick = () => {
     navigate(`/details/${id}`);
   };
+
   return (
     <Link to={ `/details/${id}` } data-testid="product">
       <img src={ thumbnail } alt={ `imagem de ${title}` } />
