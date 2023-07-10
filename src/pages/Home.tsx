@@ -15,6 +15,7 @@ function Home() {
   const [searchTerm, setSearchTerm] = useState('');
   const [products, setProducts] = useState<Product[]>([]);
   const [errorMessage, setErrorMessage] = useState('');
+  const [productsSave, setProductsSave] = useState<Product[]>([]);
   const navigate = useNavigate();
 
   const search = async (id:string) => {
@@ -40,6 +41,15 @@ function Home() {
   function handleClick() {
     navigate('/carrinho');
   }
+
+  const addProductToCart = ({ target }: React.MouseEvent<HTMLButtonElement>) => {
+    const { id: selectProduct } = target as Element;
+    const product = products.find((p) => p.id === selectProduct);
+    if (!productsSave.includes(product)) {
+      setProductsSave([...productsSave, product] as [Product, Product]);
+      localStorage.setItem('chosenProduct', JSON.stringify(productsSave));
+    }
+  };
 
   return (
     <>
@@ -70,15 +80,22 @@ function Home() {
       {products.length > 0 && (
         <div id="Produtos">
           {products.map((product) => (
-            <ProductBox
-              key={ product.id }
-              { ...product }
-            />
+            <div key={ product.id }>
+              <ProductBox
+                { ...product }
+              />
+              <button
+                data-testid="product-add-to-cart"
+                onClick={ addProductToCart }
+                id={ product.id }
+              >
+                Adicionar ao carrinho
+              </button>
+            </div>
           ))}
         </div>
       )}
     </>
   );
 }
-
 export default Home;
