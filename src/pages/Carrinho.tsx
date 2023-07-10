@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 
 function Carrinho({ cart }: any) {
   const navigate = useNavigate();
-  const getFromLS = JSON.parse(localStorage.getItem('ML_item') as string);
 
   function handleClickBack() {
     navigate(-1);

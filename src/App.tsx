@@ -59,7 +59,8 @@ function App() {
         },
       ];
     }
-    setCart(arr);
+
+    setCart(arr as Product[]);
   };
 
   return (
