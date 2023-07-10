@@ -11,7 +11,7 @@ export interface Product {
 
 function ProductBox({ id, title, thumbnail, price, quantity }: Product) {
   const navigate = useNavigate();
-  console.log(quantity);
+  // console.log(quantity);
 
   const handleProductClick = () => {
     navigate(`/details/${id}`);

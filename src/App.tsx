@@ -24,18 +24,21 @@ function App() {
 
   useEffect(() => {
     const getFromLS = JSON.parse(localStorage.getItem('ML_item') as string);
-  
+
     if (getFromLS) {
       setCart(getFromLS);
     }
-    console.log(cart);
+    // console.log(cart);
+  }, []);
 
-  },[])
+  useEffect(() => {
+    const cartStringfy = JSON.stringify(cart);
+    localStorage.setItem('ML_item', cartStringfy);
+  }, [cart]);
 
   const addToCart = (product:Product | null) => {
     const checkItem = cart?.some((item) => item.id === product?.id);
     let arr = [];
-
 
     if (checkItem) {
       arr = cart.map((cartProduct) => {
@@ -57,15 +60,12 @@ function App() {
       ];
     }
     setCart(arr);
-
-    const cartStringfy = JSON.stringify(cart);
-    localStorage.setItem('ML_item', cartStringfy);
   };
 
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={ <Home cart={ cart } addToCart={ addToCart } /> } />
+        <Route path="/" element={ <Home /> } />
         <Route path="/carrinho" element={ <Carrinho cart={ cart } /> } />
         <Route path="/details/:id" element={ <Details addToCart={ addToCart } /> } />
       </Routes>
