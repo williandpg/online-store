@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import { Product } from '../components/ProductsBox';
 import { getProductById } from '../services/api';
 
-function Details() {
+function Details({ addToCart }: any) {
   const { id }: { id?: string } = useParams();
   const [product, setProduct] = useState<Product | null>(null);
   const navigate = useNavigate();
+
   useEffect(() => {
     const fetchProduct = async () => {
       if (!id) {
@@ -22,15 +23,24 @@ function Details() {
     };
     fetchProduct();
   }, [id]);
+
   const handleCartClick = () => {
     navigate('/carrinho');
   };
+
   if (!product) {
     return <p>Carregando detalhes do produto...</p>;
   }
 
+  const handleBackToInitialPage = () => {
+    navigate('/');
+  };
+
   return (
     <div>
+      <button data-testid="shopping-cart-button" onClick={ () => handleCartClick() }>
+        Ver meu Carrinho
+      </button>
       <h1 data-testid="product-detail-name">{product.title}</h1>
       <img
         src={ product.thumbnail }
@@ -38,10 +48,13 @@ function Details() {
         data-testid="product-detail-image"
       />
       <h2 data-testid="product-detail-price">{product.price}</h2>
-      <button data-testid="shopping-cart-button" onClick={ handleCartClick }>
-        Carrinho
+      <button
+        data-testid="product-detail-add-to-cart"
+        onClick={ () => addToCart(product) }
+      >
+        Adicionar ao Carrinho
       </button>
-      <Link to="/">Voltar para a página inicial</Link>
+      <button onClick={ handleBackToInitialPage }>Voltar para a página inicial</button>
     </div>
   );
 }

@@ -15,6 +15,7 @@ function Home() {
   const [products, setProducts] = useState<Product[]>([]);
   const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
+
   const search = async (id:string) => {
     try {
       const data = await getProductsFromCategoryAndQuery(id, searchTerm);
