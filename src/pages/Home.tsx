@@ -11,11 +11,11 @@ import type { Product } from '../components/ProductsBox';
 
 import Navigation from './Navigation';
 
-function Home() {
+function Home({ addToCart }: any) {
   const [searchTerm, setSearchTerm] = useState('');
   const [products, setProducts] = useState<Product[]>([]);
   const [errorMessage, setErrorMessage] = useState('');
-  const [productsSave, setProductsSave] = useState<Product[]>([]);
+  // const [productsSave, setProductsSave] = useState<Product[]>([]);
   const navigate = useNavigate();
 
   const search = async (id:string) => {
@@ -41,41 +41,6 @@ function Home() {
   function handleClick() {
     navigate('/carrinho');
   }
-
-  const addProductToCart = ({ target }: React.MouseEvent<HTMLButtonElement>) => {
-    const { id: selectProduct } = target as Element;
-    const product = products.find((p) => p.id === selectProduct);
-    if (!localStorage.getItem('chosenProduct') && product) {
-    //   setProductsSave([...productsSave, product] as [Product, Product]);
-    //   localStorage.setItem('chosenProduct', JSON.stringify(productsSave));
-    // }
-      setProductsSave([
-        ...productsSave,
-        { ...product,
-          quantity: 1,
-        },
-      ]);
-      localStorage.setItem('chosenProduct', JSON.stringify(productsSave));
-    }
-    // Se o produto já está no localStorage:
-    const productStorage = JSON.parse(localStorage.getItem('chosenProduct') as string);
-    const isProduct = productStorage.find((e: Product) => e.id === product?.id);
-    if (isProduct) {
-      return [
-        ...productStorage, {
-          ...isProduct,
-          quantity: isProduct.quantity + 1,
-        },
-      ];
-    }
-    const newProducts = [...productStorage, product] as [Product, Product];
-    localStorage.setItem('chosenProduct', JSON.stringify(newProducts));
-  };
-  //   const productStorage = JSON.parse(localStorage.getItem('chosenProduct') as string);
-  //   const isProduct = productStorage.find((e: Product) => e.id === product?.id);
-  //   if (isProduct) {
-  //     return;
-  //   }
 
   return (
     <>
@@ -112,7 +77,7 @@ function Home() {
               />
               <button
                 data-testid="product-add-to-cart"
-                onClick={ addProductToCart }
+                onClick={ () => addToCart(product) }
                 id={ product.id }
               >
                 Adicionar ao carrinho

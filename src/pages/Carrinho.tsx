@@ -1,19 +1,18 @@
-import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Product } from '../components/ProductsBox';
 
-function Carrinho() {
+function Carrinho({ cart }: any) {
   const navigate = useNavigate();
-  const [cart, setCart] = useState<Product[]>([]);
 
   function handleClickBack() {
     navigate(-1);
   }
 
-  useEffect(() => {
-    const products = JSON.parse(localStorage.getItem('chosenProduct') as string);
-    setCart(products);
-  }, []);
+  type Bypass = {
+    thumbnail: any
+    title: any
+    quantity: any
+    price: number
+  };
 
   return (
     <div>
@@ -23,19 +22,19 @@ function Carrinho() {
         </div>
       ) : (
         <section>
-          {cart.map((product) => (
-            <div key={ product.id }>
-              <img src={ product.thumbnail } alt={ product.title } />
+          {cart.map((item: Bypass) => (
+            <div key={ item.title }>
+              <img src={ item.thumbnail } alt="product" />
               <h3 data-testid="shopping-cart-product-name">
-                {product.title}
+                {item.title}
               </h3>
               <h3 data-testid="shopping-cart-product-quantity">
                 Quantidade:
-                {product.quantity}
+                { item.quantity }
               </h3>
               <span>
                 Valor do item:
-                {product.price}
+                { item.price }
               </span>
             </div>
           ))}
