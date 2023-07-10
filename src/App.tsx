@@ -9,7 +9,7 @@ import { Route, Routes } from 'react-router-dom';
 // Pages
 import Home from './pages/Home';
 import Carrinho from './pages/Carrinho';
-// import Details from './pages/Details';
+import Details from './pages/Details';
 import { Product } from './components/ProductsBox';
 
 // Css
@@ -68,7 +68,7 @@ function App() {
       <Routes>
         <Route path="/" element={ <Home addToCart={ addToCart } /> } />
         <Route path="/carrinho" element={ <Carrinho cart={ cart } /> } />
-        {/* <Route path="/details/:id" element={ <Details addToCart={ addToCart } /> } /> */}
+        <Route path="/details/:id" element={ <Details addToCart={ addToCart } /> } />
       </Routes>
     </div>
   );

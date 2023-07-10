@@ -8,7 +8,6 @@ import { getProductsFromCategoryAndQuery } from '../services/api';
 // Componente
 import ProductBox from '../components/ProductsBox';
 import type { Product } from '../components/ProductsBox';
-
 import Navigation from './Navigation';
 
 function Home({ addToCart }: any) {
@@ -35,6 +34,9 @@ function Home({ addToCart }: any) {
 
   const handleSearch = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (searchTerm.trim().length === 0) {
+      setErrorMessage('Nenhum produto foi encontrado');
+    }
     search('');
   };
 
