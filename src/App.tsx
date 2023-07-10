@@ -66,7 +66,7 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={ <Home /> } />
+        <Route path="/" element={ <Home addToCart={ addToCart } /> } />
         <Route path="/carrinho" element={ <Carrinho cart={ cart } /> } />
         <Route path="/details/:id" element={ <Details addToCart={ addToCart } /> } />
       </Routes>

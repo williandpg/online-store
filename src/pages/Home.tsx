@@ -10,10 +10,11 @@ import ProductBox from '../components/ProductsBox';
 import type { Product } from '../components/ProductsBox';
 import Navigation from './Navigation';
 
-function Home() {
+function Home({ addToCart }: any) {
   const [searchTerm, setSearchTerm] = useState('');
   const [products, setProducts] = useState<Product[]>([]);
   const [errorMessage, setErrorMessage] = useState('');
+  // const [productsSave, setProductsSave] = useState<Product[]>([]);
   const navigate = useNavigate();
 
   const search = async (id:string) => {
@@ -72,15 +73,22 @@ function Home() {
       {products.length > 0 && (
         <div id="Produtos">
           {products.map((product) => (
-            <ProductBox
-              key={ product.id }
-              { ...product }
-            />
+            <div key={ product.id }>
+              <ProductBox
+                { ...product }
+              />
+              <button
+                data-testid="product-add-to-cart"
+                onClick={ () => addToCart(product) }
+                id={ product.id }
+              >
+                Adicionar ao carrinho
+              </button>
+            </div>
           ))}
         </div>
       )}
     </>
   );
 }
-
 export default Home;

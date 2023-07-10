@@ -1,4 +1,3 @@
-// import { ReactElement, JSXElementConstructor, ReactNode, ReactPortal } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 function Carrinho({ cart }: any) {
