@@ -3,6 +3,7 @@ export interface Product {
   title: string
   thumbnail: string
   price: string
+  quantity: number
 }
 
 function ProductBox({ title, thumbnail, price }: Omit<Product, 'id'>) {

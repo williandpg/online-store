@@ -45,11 +45,37 @@ function Home() {
   const addProductToCart = ({ target }: React.MouseEvent<HTMLButtonElement>) => {
     const { id: selectProduct } = target as Element;
     const product = products.find((p) => p.id === selectProduct);
-    if (!productsSave.includes(product)) {
-      setProductsSave([...productsSave, product] as [Product, Product]);
+    if (!localStorage.getItem('chosenProduct') && product) {
+    //   setProductsSave([...productsSave, product] as [Product, Product]);
+    //   localStorage.setItem('chosenProduct', JSON.stringify(productsSave));
+    // }
+      setProductsSave([
+        ...productsSave,
+        { ...product,
+          quantity: 1,
+        },
+      ]);
       localStorage.setItem('chosenProduct', JSON.stringify(productsSave));
     }
+    // Se o produto já está no localStorage:
+    const productStorage = JSON.parse(localStorage.getItem('chosenProduct') as string);
+    const isProduct = productStorage.find((e: Product) => e.id === product?.id);
+    if (isProduct) {
+      return [
+        ...productStorage, {
+          ...isProduct,
+          quantity: isProduct.quantity + 1,
+        },
+      ];
+    }
+    const newProducts = [...productStorage, product] as [Product, Product];
+    localStorage.setItem('chosenProduct', JSON.stringify(newProducts));
   };
+  //   const productStorage = JSON.parse(localStorage.getItem('chosenProduct') as string);
+  //   const isProduct = productStorage.find((e: Product) => e.id === product?.id);
+  //   if (isProduct) {
+  //     return;
+  //   }
 
   return (
     <>
