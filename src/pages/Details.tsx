@@ -3,11 +3,10 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import { Product } from '../components/ProductsBox';
 import { getProductById } from '../services/api';
 
-function Details() {
+function Details({ addToCart }: any) {
   const { id }: { id?: string } = useParams();
   const [product, setProduct] = useState<Product | null>(null);
   const navigate = useNavigate();
-  const [cart, setCart] = useState<Product[]>([]);
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -26,49 +25,16 @@ function Details() {
   }, [id]);
 
   const handleCartClick = () => {
-    navigate('/carrinho', { state: cart });
+    navigate('/carrinho');
   };
 
   if (!product) {
     return <p>Carregando detalhes do produto...</p>;
   }
 
-  const handleAddCart = () => {
-    const checkItem = cart.some((item) => item.id === product.id );
-    let arr = [];
-    if(checkItem) {
-      arr = cart.map((cartProduct) => {
-        if(cartProduct.id === product.id) {
-          return {
-            ...cartProduct,
-            quantity: cartProduct.quantity + 1
-          }
-        }
-        return cartProduct;
-      })
-      // arr = [... cart, {
-      //   ...product, 
-      //   quantity: product.quantity + 1
-      // }]
-    }
-    else {
-      arr = [
-        ...cart,
-        {
-        ...product,
-        quantity: 1
-        }
-      ]
-      console.log('entrei no else')
-
-    }
-    console.log(arr);
-    setCart(arr);
-  }
-
   const handleBackToInitialPage = () => {
-    navigate('/', { state: cart })
-  }
+    navigate('/');
+  };
 
   return (
     <div>
@@ -82,7 +48,10 @@ function Details() {
         data-testid="product-detail-image"
       />
       <h2 data-testid="product-detail-price">{product.price}</h2>
-      <button data-testid="product-detail-add-to-cart" onClick={ handleAddCart }>
+      <button
+        data-testid="product-detail-add-to-cart"
+        onClick={ () => addToCart(product) }
+      >
         Adicionar ao Carrinho
       </button>
       <button onClick={ handleBackToInitialPage }>Voltar para a página inicial</button>
