@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 // import React from 'react';
 import { Route, Routes } from 'react-router-dom';
@@ -22,15 +22,20 @@ import './App.css';
 function App() {
   const [cart, setCart] = useState<Product[]>([]);
 
+  useEffect(() => {
+    const getFromLS = JSON.parse(localStorage.getItem('ML_item') as string);
+  
+    if (getFromLS) {
+      setCart(getFromLS);
+    }
+    console.log(cart);
+
+  },[])
+
   const addToCart = (product:Product | null) => {
     const checkItem = cart?.some((item) => item.id === product?.id);
     let arr = [];
 
-    const getFromLS = JSON.parse(localStorage.getItem('ML_item') as string);
-
-    if (getFromLS) {
-      arr = getFromLS;
-    }
 
     if (checkItem) {
       arr = cart.map((cartProduct) => {
@@ -53,7 +58,7 @@ function App() {
     }
     setCart(arr);
 
-    const cartStringfy = JSON.stringify(arr);
+    const cartStringfy = JSON.stringify(cart);
     localStorage.setItem('ML_item', cartStringfy);
   };
 

@@ -18,13 +18,13 @@ function Carrinho({ cart }: any) {
 
   return (
     <div>
-      {getFromLS.length === 0 ? (
+      {cart.length === 0 ? (
         <div data-testid="shopping-cart-empty-message">
           Seu carrinho está vazio
         </div>
       ) : (
         <section>
-          {getFromLS.map((item: Bypass) => (
+          {cart.map((item: Bypass) => (
             <div key={ item.title }>
               <img src={ item.thumbnail } alt="product" />
               <h3 data-testid="shopping-cart-product-name">
